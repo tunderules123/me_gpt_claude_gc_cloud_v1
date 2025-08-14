@@ -1,0 +1,18 @@
+{
+  "name": "3-person-chat-app",
+  "version": "1.0.0",
+  "description": "A brutally minimal 3-person chat (User, GPT, Claude) with React + Node.js",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "keywords": ["chat", "gpt", "claude", "react", "nodejs", "typescript"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
