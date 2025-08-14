@@ -8,9 +8,9 @@ import { Author, Msg, SendRequest, SendResponse, HistoryResponse } from './types
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const TIMEOUT_MS = parseInt(process.env.TIMEOUT_MS || '20000');
-const RETRIES = parseInt(process.env.RETRIES || '2');
+const PORT = parseInt(process.env.PORT || '3001', 10);
+const TIMEOUT_MS = parseInt(process.env.TIMEOUT_MS || '20000', 10);
+const RETRIES = parseInt(process.env.RETRIES || '2', 10);
 
 // Initialize LLM clients
 const openai = new OpenAI({
@@ -28,7 +28,10 @@ console.log('Anthropic messages create method:', typeof anthropic?.messages?.cre
 // In-memory history
 let history: Msg[] = [];
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL, "http://localhost:5173"] : "*",
+  credentials: true
+}));
 app.use(express.json());
 
 // Helper functions
@@ -249,8 +252,6 @@ app.post('/reset', (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`OpenAI API Key: ${process.env.OPENAI_API_KEY ? 'Set' : 'Missing'}`);
-  console.log(`Anthropic API Key: ${process.env.ANTHROPIC_API_KEY ? 'Set' : 'Missing'}`);
 });
