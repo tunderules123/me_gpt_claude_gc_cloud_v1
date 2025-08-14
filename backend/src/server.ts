@@ -9,10 +9,9 @@ dotenv.config();
 
 const app = express();
 
-// Explicit type declarations to avoid TypeScript compilation issues
-const SERVER_PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
-const API_TIMEOUT: number = process.env.TIMEOUT_MS ? parseInt(process.env.TIMEOUT_MS, 10) : 20000;
-const MAX_RETRIES: number = process.env.RETRIES ? parseInt(process.env.RETRIES, 10) : 2;
+const SERVER_PORT: number = Number(process.env.PORT) || 3001;
+const API_TIMEOUT: number = Number(process.env.TIMEOUT_MS) || 20000;
+const MAX_RETRIES: number = Number(process.env.RETRIES) || 2;
 
 // Initialize LLM clients
 const openai = new OpenAI({
